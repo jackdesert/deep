@@ -1,0 +1,26 @@
+{
+  "SpotPrice": "0.9",
+  "LaunchSpecification": {
+    "ImageId": "ami-0bbbd373",
+    "InstanceType": "p2.xlarge",
+    "KeyName": "bip-a",
+    "BlockDeviceMappings": [
+      {
+        "DeviceName": "/dev/sda1",
+        "Ebs": {
+          "DeleteOnTermination": true,
+          "VolumeType": "gp2",
+          "VolumeSize": 75,
+          "SnapshotId": "snap-051a5ad1169baf8ce"
+        }
+      }
+    ],
+    "AllSecurityGroups": [
+      {
+        "GroupId": "sg-bb6afcc1"
+      }
+    ]
+  },
+  "InstanceCount": 1,
+  "BlockDurationMinutes": 60
+}

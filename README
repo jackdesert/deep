@@ -1,0 +1,11 @@
+GPU
+===
+
+A set of tools for quickly configuring an EC2 spot instance
+for use with deep learning algorithms.
+
+
+Prepare Instance
+----------------
+
+    bin/prepare_instance.sh
