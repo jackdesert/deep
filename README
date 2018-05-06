@@ -1,8 +1,16 @@
-GPU
-===
+DEEP
+====
 
 A set of tools for quickly configuring an EC2 spot instance
 for use with deep learning algorithms.
+
+
+Prerequisites
+-------------
+
+Install awscli
+
+    pip3 install --user awscli
 
 
 Prepare Instance
