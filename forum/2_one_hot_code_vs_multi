@@ -1,0 +1,31 @@
+One-Hot Encoding vs Multi-Hot
+
+Is it really called one-hot encoding when there are [b]multiple hot bits[/b]?
+
+This is in regards to Section 3.4.2 (The binary classification example, using the IMDB dataset, which contains textual movie reviews). The book calls it "one-hot" encoding, but it does not match the Wikipedia definition of one-hot encoding.
+
+Here's a snippet from the Wikipedia page https://en.wikipedia.org/wiki/One-hot
+
+"In natural language processing, a one-hot vector is a 1 x N matrix (vector) used to distinguish each word in a vocabulary from every other word in the vocabulary. The vector consists of 1s in all cells with the exception of a single 1 in a cell used uniquely to identify the word."
+
+However, in Section 3.4.2 (Preparing the Data) it suggests one-hot coding using a different approach.
+
+"This would mean, for instance ,turning the sequence [3, 5] into a 10,000-dimensional vector that would be all 0s except for the indices 3 and 5, which would be 1s."
+
+To visualize each of these approaches, let's say that N is 10, and we want to encode a two-word phrase that has the words at indices 3 and 5. The Wikipedia version would give us two vectors (one for each word), each having one hot bit:
+
+
+[code]
+0 0 0 1 0 0 0 0 0 0 0
+0 0 0 0 0 1 0 0 0 0 0
+[/code]
+
+The version in 3.4.2 of the book presents both these words in a single vector, something that is not [b]one-hot[/b] at all, but would be more aptly named [b]multi-hot[/b]:
+[code]
+0 0 0 1 0 1 0 0 0 0 0
+[/code]
+
+
+Using [b]multi-hot[/b] encoding, you lose the order of the words, and if a single review has some words more than once, you lose the multiples. Perhaps the model performs just as well without order and without multiples, but I would have liked to at least hear these items mentioned.
+
+

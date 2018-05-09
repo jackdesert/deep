@@ -1,0 +1,30 @@
+In short: conflation of the meaning of zero in a one-hot-coded vector.
+
+In chapter three I implemented my own hot-code algorithm, just for practice, and ran into this very issue.
+
+Let's say you create a word index like this:
+
+[code]
+word_index = {'once': 0,
+              'upon': 1,
+              'a'   : 2,
+              'time': 3,
+              'fact': 4,
+              'fun':  5,
+              ...
+              }
+[/code]
+
+And then you one-hot code a sentence:
+
+[code]
+sentence = "upon time"
+v = custom_one_hot(sentence)
+v -> [      0,      1,     0,        1,      0,       0,   ...]
+#        once    upon      a      time    fact      fun    ...
+[/code]
+
+Now let's say you write a function that turns [i]v[/i] back into the words in [i]sentence[/i].
+How will it know if all the zeros in [i]v[/i] represent the word "once", or if they represent
+a word in the [i]word_index[/i] that was not in [i]sentence[/i]?
+

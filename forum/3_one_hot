@@ -1,0 +1,6 @@
+In section 3.4.2, page 69, it says "... turning the sequence [3, 5] into a 10,000-dimensional vector that would be all 0s except for the indices at 3 and 5."
+
+But a single vector is not what is returned. It returns a tensor of shape (2, 10000). This is born out in Listing 3.2.
+
+Try this wording: "... turning the sequence [3, 5] into a tensor of shape (2, 10000) that would be all zeros except for the values at (0, 3) and (1, 5), which would be 1s."
+
