@@ -5,10 +5,13 @@
 # experiment from what I learned.
 
 import pdb
+import pathlib
+
 from keras.datasets import boston_housing
-import numpy as np
 from keras import models
 from keras import layers
+
+import numpy as np
 
 import matplotlib
 matplotlib.use('Agg') # Using Agg because it can run without an X-server
@@ -28,6 +31,10 @@ train_data /= train_std
 test_data -= train_mean
 test_data /= train_std
 
+units = 64
+k = 4
+epochs = 500
+all_mae_histories = []
 
 def build_model():
     model = models.Sequential() # Sequential means a linear stack of layers
@@ -40,8 +47,8 @@ def build_model():
 
 
     # Each layer needs an "activation"
-    model.add(layers.Dense(32, activation='relu', input_shape=(train_data.shape[1],)))
-    model.add(layers.Dense(32, activation='relu'))
+    model.add(layers.Dense(units, activation='relu', input_shape=(train_data.shape[1],)))
+    model.add(layers.Dense(units, activation='relu'))
 
     # Final layer is (1) for scalar (output) regression
     model.add(layers.Dense(1))
@@ -52,8 +59,6 @@ def build_model():
     return(model)
 
 
-k = 4
-all_mae_histories = []
 
 def b_split(v_index):
 
@@ -81,7 +86,7 @@ for i in range(k):
     m = build_model()
     history = m.fit(train_data_part,
                     train_targets_part,
-                    epochs=50,
+                    epochs=epochs,
                     verbose=1,
                     batch_size=1,
                     validation_data=(validation_data, validation_targets))
@@ -90,14 +95,23 @@ for i in range(k):
 
 
 
-for color, hist in zip(['bo', 'ro', 'yo', 'ko'], all_mae_histories):
-    plt.plot(hist, color)
+for color, hist in zip(['bo', 'ro', 'yo', 'ko'], all_mae_histories): plt.plot(hist, color)
 
 mean = np.mean(all_mae_histories, axis=0)
 plt.plot(mean, 'm')
-plt.savefig('/tmp/plot.png')
 
-pdb.set_trace()
+minimum = np.min(mean)
+plt.plot((0, epochs), (minimum, minimum), 'm-')
+
+plt.title(f'Validation with {units} units. (min={round(minimum, 3)})')
+
+directory = '/tmp/plots'
+pathlib.Path(directory).mkdir(exist_ok=True)
+
+filename = f'{directory}/3.6-validation-with-{units}-units-and-{epochs}-epochs.png'
+plt.savefig(filename)
+
+print(f'saved to {filename}')
 
 
 
